@@ -1,7 +1,8 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useRainViewerData } from "../hooks/useRainViewerData";
-import { radarTileUrl, satelliteTileUrl } from "../lib/rainviewer";
+import { radarTileUrl } from "../lib/rainviewer";
+import { GOES_INFRARED_TILE_URL, GOES_INFRARED_MAX_NATIVE_ZOOM } from "../lib/goesSatellite";
 import type { NwsAlertCollection } from "../lib/nwsAlerts";
 import type { StationObservation } from "../lib/nwsStations";
 import AlertsLayer from "./AlertsLayer";
@@ -32,7 +33,6 @@ export default function MapView({
   const { data } = useRainViewerData();
 
   const radarFrame = data?.radar.past.at(-1);
-  const satelliteFrame = data?.satellite.infrared.at(-1);
   const showRadar = showReflectivity || showPrecipitation;
 
   return (
@@ -44,12 +44,12 @@ export default function MapView({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           maxZoom={19}
         />
-        {data && showSatellite && satelliteFrame && (
+        {showSatellite && (
           <TileLayer
-            url={satelliteTileUrl(data.host, satelliteFrame)}
+            url={GOES_INFRARED_TILE_URL}
             opacity={0.6}
             maxZoom={19}
-            maxNativeZoom={12}
+            maxNativeZoom={GOES_INFRARED_MAX_NATIVE_ZOOM}
           />
         )}
         {data && showRadar && radarFrame && (

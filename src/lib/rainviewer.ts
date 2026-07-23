@@ -9,9 +9,6 @@ export interface RainViewerData {
     past: RainViewerFrame[];
     nowcast: RainViewerFrame[];
   };
-  satellite: {
-    infrared: RainViewerFrame[];
-  };
 }
 
 const WEATHER_MAPS_URL = "https://api.rainviewer.com/public/weather-maps.json";
@@ -27,8 +24,4 @@ export async function fetchWeatherMaps(): Promise<RainViewerData> {
 // Color scheme 1 = "Original" (green/yellow/red), matching the sidebar legend swatches.
 export function radarTileUrl(host: string, frame: RainViewerFrame): string {
   return `${host}${frame.path}/256/{z}/{x}/{y}/1/1_1.png`;
-}
-
-export function satelliteTileUrl(host: string, frame: RainViewerFrame): string {
-  return `${host}${frame.path}/256/{z}/{x}/{y}/0/0_0.png`;
 }

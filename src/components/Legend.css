@@ -36,10 +36,6 @@
   background: var(--legend-heavy);
 }
 
-.legend-scale--grayscale {
-  background: linear-gradient(to right, #0a0a0a, #f5f5f5);
-}
-
 .legend-scale__labels {
   display: flex;
   justify-content: space-between;
@@ -70,6 +66,13 @@
   height: 14px;
   border-radius: 2px;
   flex-shrink: 0;
+}
+
+.legend__note {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-secondary);
 }
 
 .legend__empty {

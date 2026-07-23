@@ -31,12 +31,11 @@ export default function Legend({ showRadar, showSatellite, showAlerts }: LegendP
 
       {showSatellite && (
         <div className="legend__block">
-          <div className="legend__title">Cloud cover (IR)</div>
-          <div className="legend-scale legend-scale--grayscale" />
-          <div className="legend-scale__labels">
-            <span>less cloud</span>
-            <span>more cloud</span>
-          </div>
+          <div className="legend__title">Cloud cover (GOES IR)</div>
+          <p className="legend__note">
+            Grayscale = cloud-top brightness temperature. Green/yellow/blue highlights mark
+            colder, higher cloud tops — often associated with strong convection.
+          </p>
         </div>
       )}
 
