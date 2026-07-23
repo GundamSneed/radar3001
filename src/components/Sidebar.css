@@ -2,7 +2,42 @@
   width: 240px;
   flex-shrink: 0;
   background: var(--bg-panel);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.2s ease;
+}
+
+.sidebar--collapsed {
+  width: 40px;
+}
+
+.sidebar__collapse {
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin: 12px 12px 0 0;
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sidebar__collapse:hover {
+  background: var(--bg-panel-hover);
+}
+
+.sidebar__body {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar--collapsed .sidebar__body {
+  display: none;
 }
 
 .sidebar__tabs {
@@ -23,18 +58,6 @@
 .sidebar__tab--active {
   background: var(--bg-panel-hover);
   color: var(--text-secondary);
-}
-
-.sidebar__collapse {
-  margin-left: auto;
-  margin-right: 12px;
-  background: none;
-  border: 1px solid var(--border-strong);
-  color: var(--text-secondary);
-  width: 22px;
-  height: 22px;
-  border-radius: 2px;
-  cursor: pointer;
 }
 
 .sidebar__section {
@@ -78,15 +101,6 @@
   cursor: pointer;
 }
 
-.layer-list__item--disabled {
-  color: var(--text-faint);
-}
-
-.layer-list__item--disabled input[type="checkbox"],
-.layer-list__item--disabled label {
-  cursor: not-allowed;
-}
-
 .sidebar__section--planned .planned-list {
   list-style: none;
   margin: 0;
@@ -96,35 +110,4 @@
   gap: 8px;
   font-size: 10px;
   color: var(--text-faint);
-}
-
-.legend-scale {
-  display: flex;
-  height: 16px;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.legend-scale__segment {
-  flex: 1;
-}
-
-.legend-scale__segment--light {
-  background: var(--legend-light);
-}
-
-.legend-scale__segment--mid {
-  background: var(--legend-mid);
-}
-
-.legend-scale__segment--heavy {
-  background: var(--legend-heavy);
-}
-
-.legend-scale__labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: var(--text-muted);
-  margin-top: 6px;
 }
