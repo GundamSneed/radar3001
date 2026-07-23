@@ -1,0 +1,14 @@
+.map-placeholder {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-panel-alt);
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-placeholder__label {
+  color: var(--text-muted);
+  font-size: 13px;
+}

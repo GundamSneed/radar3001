@@ -1,0 +1,95 @@
+<svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Weather radar dashboard wireframe, v1 scope</title>
+<desc>Layout mockup showing v1 free/keyless features: reflectivity and precipitation from RainViewer, cloud cover from GOES satellite, warnings/alerts and wind from the NWS API. Sidebar has a collapse toggle. Dark utilitarian palette.</desc>
+
+<rect x="0" y="0" width="1200" height="720" fill="#0e1013"/>
+
+<rect x="0" y="0" width="1200" height="56" fill="#1a1d22" stroke="#2c3038" stroke-width="1"/>
+<text x="24" y="34" font-family="monospace" font-size="16" fill="#e4e6ea" font-weight="bold">RADAR</text>
+
+<g font-family="monospace" font-size="12" fill="#c7cad0">
+<rect x="130" y="14" width="130" height="28" fill="none" stroke="#3a3f48" stroke-width="1" rx="2"/>
+<text x="140" y="32">Time range ▾</text>
+
+<rect x="272" y="14" width="120" height="28" fill="none" stroke="#3a3f48" stroke-width="1" rx="2"/>
+<text x="282" y="32">Region ▾</text>
+
+<rect x="900" y="14" width="270" height="28" fill="none" stroke="#3a3f48" stroke-width="1" rx="2"/>
+<text x="912" y="32" fill="#7d818a">Search location…</text>
+</g>
+
+<rect x="0" y="57" width="960" height="583" fill="#14171c" stroke="#2c3038" stroke-width="1"/>
+<g stroke="#22262d" stroke-width="1">
+<line x1="96" y1="57" x2="96" y2="640"/><line x1="192" y1="57" x2="192" y2="640"/>
+<line x1="288" y1="57" x2="288" y2="640"/><line x1="384" y1="57" x2="384" y2="640"/>
+<line x1="480" y1="57" x2="480" y2="640"/><line x1="576" y1="57" x2="576" y2="640"/>
+<line x1="672" y1="57" x2="672" y2="640"/><line x1="768" y1="57" x2="768" y2="640"/>
+<line x1="864" y1="57" x2="864" y2="640"/>
+<line x1="0" y1="140" x2="960" y2="140"/><line x1="0" y1="223" x2="960" y2="223"/>
+<line x1="0" y1="306" x2="960" y2="306"/><line x1="0" y1="389" x2="960" y2="389"/>
+<line x1="0" y1="472" x2="960" y2="472"/><line x1="0" y1="555" x2="960" y2="555"/>
+</g>
+<ellipse cx="450" cy="290" rx="80" ry="50" fill="#2f6b3a" opacity="0.6"/>
+<ellipse cx="475" cy="270" rx="38" ry="24" fill="#c99a2e" opacity="0.7"/>
+<text x="480" y="345" font-family="monospace" font-size="13" fill="#6a6f78">MAP AREA — precip / reflectivity tiles</text>
+
+<g font-family="monospace" font-size="10" fill="#6a6f78">
+<rect x="130" y="230" width="10" height="6" fill="#a63b3b"/>
+<text x="145" y="236">Tornado warning polygon</text>
+</g>
+<path d="M100 200 L160 210 L150 260 L90 250 Z" fill="none" stroke="#a63b3b" stroke-width="2" stroke-dasharray="5 3"/>
+
+<rect x="18" y="72" width="28" height="28" fill="#22262d" stroke="#3a3f48"/>
+<path d="M38 78 L28 86 L38 94" fill="none" stroke="#c7cad0" stroke-width="2"/>
+<text x="18" y="112" font-family="monospace" font-size="9" fill="#6a6f78">collapse</text>
+
+<rect x="960" y="57" width="240" height="583" fill="#1a1d22" stroke="#2c3038" stroke-width="1"/>
+<g font-family="monospace" font-size="12" fill="#c7cad0">
+<rect x="960" y="57" width="120" height="34" fill="#22262d"/>
+<text x="985" y="79">Layers</text>
+<text x="1100" y="79" fill="#7d818a">Legend</text>
+<line x1="960" y1="91" x2="1200" y2="91" stroke="#2c3038"/>
+
+<rect x="980" y="112" width="14" height="14" fill="#233043" stroke="#3a6ea5"/>
+<text x="1004" y="124" fill="#8fc4ff">Reflectivity</text>
+<rect x="980" y="142" width="14" height="14" fill="#233043" stroke="#3a6ea5"/>
+<text x="1004" y="154" fill="#8fc4ff">Precipitation</text>
+<rect x="980" y="172" width="14" height="14" fill="none" stroke="#5a5f68"/>
+<text x="1004" y="184">Cloud cover (satellite)</text>
+<rect x="980" y="202" width="14" height="14" fill="none" stroke="#5a5f68"/>
+<text x="1004" y="214">Watches / warnings</text>
+<rect x="980" y="232" width="14" height="14" fill="none" stroke="#5a5f68"/>
+<text x="1004" y="244">Wind / surface obs</text>
+
+<line x1="960" y1="270" x2="1200" y2="270" stroke="#2c3038"/>
+<text x="980" y="292" font-size="10" fill="#4d5158">Planned — later phase</text>
+<text x="980" y="312" font-size="10" fill="#4d5158">Velocity</text>
+<text x="980" y="330" font-size="10" fill="#4d5158">Precip type</text>
+<text x="980" y="348" font-size="10" fill="#4d5158">Storm tracks</text>
+<text x="980" y="366" font-size="10" fill="#4d5158">Hail / freezing level</text>
+<text x="980" y="384" font-size="10" fill="#4d5158">Lightning</text>
+
+<line x1="960" y1="410" x2="1200" y2="410" stroke="#2c3038"/>
+<text x="980" y="434" fill="#7d818a">Legend</text>
+<rect x="980" y="446" width="200" height="16" fill="#25333f"/>
+<rect x="980" y="446" width="66" height="16" fill="#2f6b3a"/>
+<rect x="1046" y="446" width="67" height="16" fill="#c99a2e"/>
+<rect x="1113" y="446" width="67" height="16" fill="#a63b3b"/>
+<text x="980" y="476" font-size="10" fill="#6a6f78">light</text>
+<text x="1180" y="476" font-size="10" fill="#6a6f78" text-anchor="end">heavy</text>
+</g>
+
+<rect x="0" y="640" width="1200" height="80" fill="#1a1d22" stroke="#2c3038" stroke-width="1"/>
+<circle cx="40" cy="680" r="16" fill="none" stroke="#5a5f68" stroke-width="1"/>
+<path d="M35 672 L35 688 L49 680 Z" fill="#c7cad0"/>
+<rect x="80" y="672" width="1040" height="6" fill="#2c3038"/>
+<rect x="80" y="672" width="360" height="6" fill="#3a6ea5"/>
+<circle cx="440" cy="675" r="7" fill="#8fc4ff"/>
+<g font-family="monospace" font-size="10" fill="#6a6f78">
+<text x="80" y="700">-6h</text>
+<text x="580" y="700" text-anchor="middle">now</text>
+<text x="1120" y="700" text-anchor="end">refresh ~5-10min</text>
+</g>
+<rect x="1140" y="662" width="40" height="20" fill="none" stroke="#3a3f48"/>
+<text x="1160" y="676" font-family="monospace" font-size="10" fill="#c7cad0" text-anchor="middle">1x</text>
+</svg>

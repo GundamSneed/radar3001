@@ -1,0 +1,118 @@
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--bg-panel);
+  overflow-y: auto;
+}
+
+.sidebar__tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar__tab {
+  background: none;
+  border: none;
+  color: var(--text-placeholder);
+  font-size: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.sidebar__tab--active {
+  background: var(--bg-panel-hover);
+  color: var(--text-secondary);
+}
+
+.sidebar__collapse {
+  margin-left: auto;
+  margin-right: 12px;
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sidebar__section {
+  padding: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.sidebar__section-title {
+  font-size: 10px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+.layer-list {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.layer-list__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.layer-list__swatch {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+}
+
+.sidebar__section--planned .planned-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+.legend-scale {
+  display: flex;
+  height: 16px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.legend-scale__segment {
+  flex: 1;
+}
+
+.legend-scale__segment--light {
+  background: var(--legend-light);
+}
+
+.legend-scale__segment--mid {
+  background: var(--legend-mid);
+}
+
+.legend-scale__segment--heavy {
+  background: var(--legend-heavy);
+}
+
+.legend-scale__labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
