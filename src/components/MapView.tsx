@@ -37,17 +37,28 @@ export default function MapView({
 
   return (
     <div className="map-view">
-      <MapContainer center={US_CENTER} zoom={5}>
+      <MapContainer center={US_CENTER} zoom={5} maxZoom={19}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           subdomains="abcd"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          maxZoom={19}
         />
         {data && showSatellite && satelliteFrame && (
-          <TileLayer url={satelliteTileUrl(data.host, satelliteFrame)} opacity={0.6} />
+          <TileLayer
+            url={satelliteTileUrl(data.host, satelliteFrame)}
+            opacity={0.6}
+            maxZoom={19}
+            maxNativeZoom={12}
+          />
         )}
         {data && showRadar && radarFrame && (
-          <TileLayer url={radarTileUrl(data.host, radarFrame)} opacity={0.75} />
+          <TileLayer
+            url={radarTileUrl(data.host, radarFrame)}
+            opacity={0.75}
+            maxZoom={19}
+            maxNativeZoom={12}
+          />
         )}
         {showAlerts && alertsData && <AlertsLayer data={alertsData} />}
         {showWind && windObs && <WindObsMarker observation={windObs} />}
