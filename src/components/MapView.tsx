@@ -1,10 +1,10 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useRainViewerData } from "../hooks/useRainViewerData";
 import { radarTileUrl } from "../lib/rainviewer";
 import { GOES_INFRARED_TILE_URL, GOES_INFRARED_MAX_NATIVE_ZOOM } from "../lib/goesSatellite";
 import type { NwsAlertCollection } from "../lib/nwsAlerts";
 import type { StationObservation } from "../lib/nwsStations";
+import type { TimelineFrame } from "../hooks/useTimelinePlayback";
 import AlertsLayer from "./AlertsLayer";
 import WindObsMarker from "./WindObsMarker";
 import "./MapView.css";
@@ -19,6 +19,8 @@ interface MapViewProps {
   alertsData: NwsAlertCollection | null;
   showWind: boolean;
   windObs: StationObservation | null;
+  radarHost: string | null;
+  radarFrame: TimelineFrame | null;
 }
 
 export default function MapView({
@@ -29,10 +31,9 @@ export default function MapView({
   alertsData,
   showWind,
   windObs,
+  radarHost,
+  radarFrame,
 }: MapViewProps) {
-  const { data } = useRainViewerData();
-
-  const radarFrame = data?.radar.past.at(-1);
   const showRadar = showReflectivity || showPrecipitation;
 
   return (
@@ -52,10 +53,10 @@ export default function MapView({
             maxNativeZoom={GOES_INFRARED_MAX_NATIVE_ZOOM}
           />
         )}
-        {data && showRadar && radarFrame && (
+        {radarHost && showRadar && radarFrame && (
           <TileLayer
-            url={radarTileUrl(data.host, radarFrame)}
-            opacity={0.75}
+            url={radarTileUrl(radarHost, radarFrame)}
+            opacity={radarFrame.isNowcast ? 0.55 : 0.75}
             maxZoom={19}
             maxNativeZoom={12}
           />

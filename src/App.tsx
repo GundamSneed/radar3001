@@ -5,6 +5,8 @@ import MapView from "./components/MapView";
 import TimelineStrip from "./components/TimelineStrip";
 import { useNwsAlerts } from "./hooks/useNwsAlerts";
 import { useStationObservation } from "./hooks/useStationObservation";
+import { useRainViewerData } from "./hooks/useRainViewerData";
+import { useTimelinePlayback } from "./hooks/useTimelinePlayback";
 import { DEFAULT_ALERTS_STATE } from "./lib/nwsAlerts";
 import { DEFAULT_OBS_LOCATION } from "./lib/nwsStations";
 import "./App.css";
@@ -17,6 +19,8 @@ function App() {
   const [showWind, setShowWind] = useState(true);
   const { data: alertsData } = useNwsAlerts(DEFAULT_ALERTS_STATE);
   const { data: windObs } = useStationObservation(DEFAULT_OBS_LOCATION.lat, DEFAULT_OBS_LOCATION.lon);
+  const { data: rainViewerData } = useRainViewerData();
+  const timeline = useTimelinePlayback(rainViewerData);
 
   return (
     <div className="app-shell">
@@ -30,6 +34,8 @@ function App() {
           alertsData={alertsData}
           showWind={showWind}
           windObs={windObs}
+          radarHost={rainViewerData?.host ?? null}
+          radarFrame={timeline.currentFrame}
         />
         <Sidebar
           showReflectivity={showReflectivity}
@@ -45,7 +51,16 @@ function App() {
           onToggleWind={() => setShowWind((v) => !v)}
         />
       </div>
-      <TimelineStrip />
+      <TimelineStrip
+        frames={timeline.frames}
+        pastCount={timeline.pastCount}
+        selectedIndex={timeline.selectedIndex}
+        isPlaying={timeline.isPlaying}
+        speed={timeline.speed}
+        onTogglePlay={timeline.togglePlaying}
+        onCycleSpeed={timeline.cycleSpeed}
+        onScrub={timeline.scrubTo}
+      />
     </div>
   );
 }

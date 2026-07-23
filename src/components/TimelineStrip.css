@@ -20,6 +20,12 @@
   cursor: pointer;
 }
 
+.timeline__play:disabled,
+.timeline__speed:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .timeline__body {
   flex: 1;
   min-width: 0;
@@ -30,25 +36,56 @@
   height: 6px;
   border-radius: 3px;
   background: var(--border);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.timeline__track--disabled {
+  cursor: default;
 }
 
 .timeline__track-fill {
   position: absolute;
-  inset: 0;
-  width: 35%;
+  top: 0;
+  bottom: 0;
+  left: 0;
   border-radius: 3px;
   background: var(--accent-blue);
+}
+
+.timeline__track-nowcast {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--accent-blue-light) 0px,
+    var(--accent-blue-light) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  opacity: 0.7;
+}
+
+.timeline__now-marker {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--text-secondary);
+  transform: translateX(-50%);
 }
 
 .timeline__scrubber {
   position: absolute;
   top: 50%;
-  left: 35%;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: var(--accent-blue-light);
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .timeline__meta {
@@ -61,6 +98,19 @@
 
 .timeline__meta-now {
   color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timeline__forecast-tag {
+  color: var(--accent-blue-light);
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  padding: 1px 4px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .timeline__speed {
