@@ -1,9 +1,6 @@
 // NWS API usage policy requires a descriptive User-Agent identifying the app + contact.
 const NWS_USER_AGENT = "radar3001-weather-dashboard (matthewgmonaco@gmail.com)";
 
-// Region selection isn't wired up yet (Phase 4) — hardcoded default until then.
-export const DEFAULT_OBS_LOCATION = { lat: 39.2, lon: -104.1 };
-
 export interface StationObservation {
   stationId: string;
   stationName: string;

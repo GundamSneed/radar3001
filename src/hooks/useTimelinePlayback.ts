@@ -5,6 +5,8 @@ export interface TimelineFrame extends RainViewerFrame {
   isNowcast: boolean;
 }
 
+export type TimeMode = "live" | "past";
+
 const SPEEDS = [1, 2, 4];
 const BASE_INTERVAL_MS = 600;
 
@@ -20,7 +22,7 @@ interface TimelinePlayback {
   scrubTo: (index: number) => void;
 }
 
-export function useTimelinePlayback(data: RainViewerData | null): TimelinePlayback {
+export function useTimelinePlayback(data: RainViewerData | null, isLive: boolean): TimelinePlayback {
   const frames = useMemo<TimelineFrame[]>(() => {
     if (!data) return [];
     return [
@@ -45,17 +47,26 @@ export function useTimelinePlayback(data: RainViewerData | null): TimelinePlayba
     }
   }, [data, pastCount]);
 
+  // Live mode pins to "now" and can't be scrubbed or played through history.
   useEffect(() => {
-    if (!isPlaying || frames.length < 2) return;
+    if (isLive) {
+      setIsPlaying(false);
+      setSelectedIndex(Math.max(pastCount - 1, 0));
+    }
+  }, [isLive, pastCount]);
+
+  useEffect(() => {
+    if (isLive || !isPlaying || frames.length < 2) return;
     const interval = setInterval(() => {
       setSelectedIndex((i) => (i + 1) % frames.length);
     }, BASE_INTERVAL_MS / SPEEDS[speedIdx]);
     return () => clearInterval(interval);
-  }, [isPlaying, frames.length, speedIdx]);
+  }, [isLive, isPlaying, frames.length, speedIdx]);
 
   const togglePlaying = useCallback(() => {
+    if (isLive) return;
     setIsPlaying((p) => !p);
-  }, []);
+  }, [isLive]);
 
   const cycleSpeed = useCallback(() => {
     setSpeedIdx((i) => (i + 1) % SPEEDS.length);
@@ -63,11 +74,11 @@ export function useTimelinePlayback(data: RainViewerData | null): TimelinePlayba
 
   const scrubTo = useCallback(
     (index: number) => {
-      if (frames.length === 0) return;
+      if (isLive || frames.length === 0) return;
       setIsPlaying(false);
       setSelectedIndex(Math.min(Math.max(index, 0), frames.length - 1));
     },
-    [frames.length],
+    [isLive, frames.length],
   );
 
   return {

@@ -1,7 +1,7 @@
 // NWS API usage policy requires a descriptive User-Agent identifying the app + contact.
 const NWS_USER_AGENT = "radar3001-weather-dashboard (matthewgmonaco@gmail.com)";
 
-// Region selection isn't wired up yet (Phase 4) — hardcoded default until then.
+// Initial region shown before the user picks one from the toolbar.
 export const DEFAULT_ALERTS_STATE = "FL";
 
 export type AlertSeverity = "Extreme" | "Severe" | "Moderate" | "Minor" | "Unknown";

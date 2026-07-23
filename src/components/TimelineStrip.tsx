@@ -8,6 +8,7 @@ interface TimelineStripProps {
   selectedIndex: number;
   isPlaying: boolean;
   speed: number;
+  disabled: boolean;
   onTogglePlay: () => void;
   onCycleSpeed: () => void;
   onScrub: (index: number) => void;
@@ -31,12 +32,14 @@ export default function TimelineStrip({
   selectedIndex,
   isPlaying,
   speed,
+  disabled,
   onTogglePlay,
   onCycleSpeed,
   onScrub,
 }: TimelineStripProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const hasFrames = frames.length > 1;
+  const interactive = hasFrames && !disabled;
 
   const lastIndex = Math.max(frames.length - 1, 1);
   const scrubberPct = hasFrames ? (selectedIndex / lastIndex) * 100 : 0;
@@ -53,18 +56,18 @@ export default function TimelineStrip({
   }
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
-    if (!hasFrames) return;
+    if (!interactive) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     onScrub(indexFromClientX(e.clientX));
   }
 
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (!hasFrames || e.buttons !== 1) return;
+    if (!interactive || e.buttons !== 1) return;
     onScrub(indexFromClientX(e.clientX));
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (!hasFrames) return;
+    if (!interactive) return;
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       onScrub(selectedIndex - 1);
@@ -81,18 +84,18 @@ export default function TimelineStrip({
         type="button"
         aria-label={isPlaying ? "Pause" : "Play"}
         onClick={onTogglePlay}
-        disabled={!hasFrames}
+        disabled={!interactive}
       >
         {isPlaying ? "❚❚" : "▶"}
       </button>
       <div className="timeline__body">
         <div
-          className={`timeline__track${hasFrames ? "" : " timeline__track--disabled"}`}
+          className={`timeline__track${interactive ? "" : " timeline__track--disabled"}`}
           ref={trackRef}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           role="slider"
-          tabIndex={hasFrames ? 0 : -1}
+          tabIndex={interactive ? 0 : -1}
           aria-label="Radar frame"
           aria-valuemin={0}
           aria-valuemax={lastIndex}
@@ -114,7 +117,7 @@ export default function TimelineStrip({
         <div className="timeline__meta">
           <span>{frames.length ? formatRelative(frames[0].time, referenceTime) : "-2h"}</span>
           <span className="timeline__meta-now">
-            {currentFrame ? formatClockTime(currentFrame.time) : "--:--"}
+            {disabled ? "live" : (currentFrame ? formatClockTime(currentFrame.time) : "--:--")}
             {currentFrame?.isNowcast && <span className="timeline__forecast-tag">forecast</span>}
           </span>
           <span>{frames.length ? formatRelative(frames[frames.length - 1].time, referenceTime) : "live"}</span>
@@ -124,7 +127,7 @@ export default function TimelineStrip({
         className="timeline__speed"
         type="button"
         onClick={onCycleSpeed}
-        disabled={!hasFrames}
+        disabled={!interactive}
         aria-label="Playback speed"
       >
         {speed}x
