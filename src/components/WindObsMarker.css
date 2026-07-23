@@ -1,0 +1,46 @@
+.wind-obs-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wind-obs-marker__arrow {
+  color: var(--accent-blue-light);
+  font-size: 20px;
+  line-height: 1;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+}
+
+.wind-obs-marker__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-blue-light);
+  border: 1px solid var(--bg-base);
+}
+
+.wind-obs-popup {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  min-width: 160px;
+}
+
+.wind-obs-popup__title {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wind-obs-popup__meta {
+  color: var(--text-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 8px;
+}
+
+.wind-obs-popup__row {
+  color: var(--text-secondary);
+  line-height: 1.4;
+}

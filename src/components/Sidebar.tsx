@@ -16,10 +16,12 @@ interface SidebarProps {
   showSatellite: boolean;
   showAlerts: boolean;
   alertsData: NwsAlertCollection | null;
+  showWind: boolean;
   onToggleReflectivity: () => void;
   onTogglePrecipitation: () => void;
   onToggleSatellite: () => void;
   onToggleAlerts: () => void;
+  onToggleWind: () => void;
 }
 
 export default function Sidebar({
@@ -28,10 +30,12 @@ export default function Sidebar({
   showSatellite,
   showAlerts,
   alertsData,
+  showWind,
   onToggleReflectivity,
   onTogglePrecipitation,
   onToggleSatellite,
   onToggleAlerts,
+  onToggleWind,
 }: SidebarProps) {
   return (
     <aside className="sidebar">
@@ -84,8 +88,8 @@ export default function Sidebar({
           />
           <label htmlFor="layer-alerts">Watches / warnings</label>
         </li>
-        <li className="layer-list__item layer-list__item--disabled">
-          <input type="checkbox" id="layer-wind" disabled />
+        <li className="layer-list__item">
+          <input type="checkbox" id="layer-wind" checked={showWind} onChange={onToggleWind} />
           <label htmlFor="layer-wind">Wind / surface obs</label>
         </li>
       </ul>
