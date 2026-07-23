@@ -67,12 +67,24 @@
   color: var(--text-secondary);
 }
 
-.layer-list__swatch {
+.layer-list__item input[type="checkbox"] {
   width: 14px;
   height: 14px;
-  flex-shrink: 0;
-  border: 1px solid var(--border-strong);
-  border-radius: 2px;
+  accent-color: var(--accent-blue);
+  cursor: pointer;
+}
+
+.layer-list__item label {
+  cursor: pointer;
+}
+
+.layer-list__item--disabled {
+  color: var(--text-faint);
+}
+
+.layer-list__item--disabled input[type="checkbox"],
+.layer-list__item--disabled label {
+  cursor: not-allowed;
 }
 
 .sidebar__section--planned .planned-list {

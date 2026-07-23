@@ -1,0 +1,31 @@
+.map-view {
+  flex: 1;
+  min-width: 0;
+  border-right: 1px solid var(--border);
+}
+
+.map-view .leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: var(--bg-panel-alt);
+  font-family: var(--font-mono);
+}
+
+.map-view .leaflet-control-zoom a {
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+}
+
+.map-view .leaflet-control-zoom a:hover {
+  background: var(--bg-panel-hover);
+}
+
+.map-view .leaflet-control-attribution {
+  background: rgba(26, 29, 34, 0.8);
+  color: var(--text-muted);
+}
+
+.map-view .leaflet-control-attribution a {
+  color: var(--text-secondary);
+}
