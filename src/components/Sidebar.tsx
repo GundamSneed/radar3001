@@ -101,7 +101,10 @@ export default function Sidebar({
                   checked={showSatellite}
                   onChange={onToggleSatellite}
                 />
-                <label htmlFor="layer-satellite">Cloud cover (satellite)</label>
+                <div className="layer-list__item-text">
+                  <label htmlFor="layer-satellite">Cloud cover (satellite)</label>
+                  <span className="layer-list__hint">North America only</span>
+                </div>
               </li>
               <li className="layer-list__item">
                 <input

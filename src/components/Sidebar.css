@@ -84,7 +84,7 @@
 
 .layer-list__item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   font-size: 12px;
   color: var(--text-secondary);
@@ -99,6 +99,17 @@
 
 .layer-list__item label {
   cursor: pointer;
+}
+
+.layer-list__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.layer-list__hint {
+  font-size: 10px;
+  color: var(--text-muted);
 }
 
 .sidebar__section--planned .planned-list {
