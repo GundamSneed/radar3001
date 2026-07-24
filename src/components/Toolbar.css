@@ -10,10 +10,20 @@
 }
 
 .toolbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: bold;
   font-size: 16px;
   letter-spacing: 0.05em;
   margin-right: 8px;
+}
+
+.toolbar__logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 6px;
 }
 
 .toolbar__controls {

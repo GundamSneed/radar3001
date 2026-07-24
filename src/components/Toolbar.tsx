@@ -28,7 +28,16 @@ export default function Toolbar({ region, onRegionChange, timeMode, onTimeModeCh
 
   return (
     <header className="toolbar">
-      <div className="toolbar__brand">RADAR</div>
+      <div className="toolbar__brand">
+        <img
+          className="toolbar__logo"
+          src={`${import.meta.env.BASE_URL}favicon-48.png`}
+          alt=""
+          width={28}
+          height={28}
+        />
+        radar3001
+      </div>
       <div className="toolbar__controls">
         <select
           className="toolbar__control"
