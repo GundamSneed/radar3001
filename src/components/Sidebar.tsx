@@ -14,6 +14,12 @@ const PLANNED_LAYERS = [
 
 type SidebarTab = "layers" | "legend";
 
+export interface FetchStatus {
+  loading: boolean;
+  error: string | null;
+  onRetry: () => void;
+}
+
 interface SidebarProps {
   showReflectivity: boolean;
   showPrecipitation: boolean;
@@ -26,6 +32,26 @@ interface SidebarProps {
   onToggleSatellite: () => void;
   onToggleAlerts: () => void;
   onToggleWind: () => void;
+  radarStatus: FetchStatus;
+  alertsStatus: FetchStatus;
+  windStatus: FetchStatus;
+}
+
+function LayerHint({ status, loadingLabel }: { status: FetchStatus; loadingLabel: string }) {
+  if (status.error) {
+    return (
+      <span className="layer-list__hint layer-list__hint--error">
+        {status.error}
+        <button type="button" className="layer-list__retry" onClick={status.onRetry}>
+          Retry
+        </button>
+      </span>
+    );
+  }
+  if (status.loading) {
+    return <span className="layer-list__hint">{loadingLabel}</span>;
+  }
+  return null;
 }
 
 export default function Sidebar({
@@ -40,6 +66,9 @@ export default function Sidebar({
   onToggleSatellite,
   onToggleAlerts,
   onToggleWind,
+  radarStatus,
+  alertsStatus,
+  windStatus,
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [tab, setTab] = useState<SidebarTab>("layers");
@@ -92,7 +121,10 @@ export default function Sidebar({
                   checked={showPrecipitation}
                   onChange={onTogglePrecipitation}
                 />
-                <label htmlFor="layer-precipitation">Precipitation</label>
+                <div className="layer-list__item-text">
+                  <label htmlFor="layer-precipitation">Precipitation</label>
+                  <LayerHint status={radarStatus} loadingLabel="Loading radar…" />
+                </div>
               </li>
               <li className="layer-list__item">
                 <input
@@ -117,14 +149,28 @@ export default function Sidebar({
               </li>
               <li className="layer-list__item">
                 <input type="checkbox" id="layer-wind" checked={showWind} onChange={onToggleWind} />
-                <label htmlFor="layer-wind">Wind / surface obs</label>
+                <div className="layer-list__item-text">
+                  <label htmlFor="layer-wind">Wind / surface obs</label>
+                  <LayerHint status={windStatus} loadingLabel="Loading station…" />
+                </div>
               </li>
             </ul>
 
             {showAlerts && (
               <div className="sidebar__section">
                 <div className="sidebar__section-title">Active alerts (no map shape)</div>
-                <ZoneAlertsList data={alertsData} />
+                {alertsStatus.error ? (
+                  <div className="zone-alerts__empty zone-alerts__empty--error">
+                    {alertsStatus.error}
+                    <button type="button" className="layer-list__retry" onClick={alertsStatus.onRetry}>
+                      Retry
+                    </button>
+                  </div>
+                ) : alertsStatus.loading ? (
+                  <div className="zone-alerts__empty">Loading alerts…</div>
+                ) : (
+                  <ZoneAlertsList data={alertsData} />
+                )}
               </div>
             )}
 

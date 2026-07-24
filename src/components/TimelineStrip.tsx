@@ -9,9 +9,12 @@ interface TimelineStripProps {
   isPlaying: boolean;
   speed: number;
   disabled: boolean;
+  loading: boolean;
+  error: string | null;
   onTogglePlay: () => void;
   onCycleSpeed: () => void;
   onScrub: (index: number) => void;
+  onRetry: () => void;
 }
 
 function formatClockTime(unixSeconds: number): string {
@@ -33,13 +36,16 @@ export default function TimelineStrip({
   isPlaying,
   speed,
   disabled,
+  loading,
+  error,
   onTogglePlay,
   onCycleSpeed,
   onScrub,
+  onRetry,
 }: TimelineStripProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const hasFrames = frames.length > 1;
-  const interactive = hasFrames && !disabled;
+  const interactive = hasFrames && !disabled && !loading && !error;
 
   const lastIndex = Math.max(frames.length - 1, 1);
   const scrubberPct = hasFrames ? (selectedIndex / lastIndex) * 100 : 0;
@@ -90,7 +96,7 @@ export default function TimelineStrip({
       </button>
       <div className="timeline__body">
         <div
-          className={`timeline__track${interactive ? "" : " timeline__track--disabled"}`}
+          className={`timeline__track${interactive ? "" : " timeline__track--disabled"}${error ? " timeline__track--error" : ""}`}
           ref={trackRef}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -117,7 +123,22 @@ export default function TimelineStrip({
         <div className="timeline__meta">
           <span>{frames.length ? formatRelative(frames[0].time, referenceTime) : "-2h"}</span>
           <span className="timeline__meta-now">
-            {disabled ? "live" : (currentFrame ? formatClockTime(currentFrame.time) : "--:--")}
+            {error ? (
+              <span className="timeline__error">
+                Radar unavailable — {error}
+                <button type="button" className="timeline__retry" onClick={onRetry}>
+                  Retry
+                </button>
+              </span>
+            ) : loading ? (
+              "Loading radar…"
+            ) : disabled ? (
+              "live"
+            ) : currentFrame ? (
+              formatClockTime(currentFrame.time)
+            ) : (
+              "--:--"
+            )}
             {currentFrame?.isNowcast && <span className="timeline__forecast-tag">forecast</span>}
           </span>
           <span>{frames.length ? formatRelative(frames[frames.length - 1].time, referenceTime) : "live"}</span>

@@ -1,3 +1,5 @@
+import { describeHttpError } from "./httpError";
+
 export interface RainViewerFrame {
   time: number;
   path: string;
@@ -16,7 +18,7 @@ const WEATHER_MAPS_URL = "https://api.rainviewer.com/public/weather-maps.json";
 export async function fetchWeatherMaps(): Promise<RainViewerData> {
   const response = await fetch(WEATHER_MAPS_URL);
   if (!response.ok) {
-    throw new Error(`RainViewer request failed: ${response.status}`);
+    throw new Error(describeHttpError(response.status, response.statusText));
   }
   return response.json();
 }

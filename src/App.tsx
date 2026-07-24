@@ -37,9 +37,24 @@ function App() {
   const [timeMode, setTimeMode] = useState<TimeMode>("live");
   const [mapTarget, setMapTarget] = useState<MapTarget>(() => targetForRegion(DEFAULT_ALERTS_STATE));
 
-  const { data: alertsData } = useNwsAlerts(region);
-  const { data: windObs } = useStationObservation(mapTarget.lat, mapTarget.lon);
-  const { data: rainViewerData } = useRainViewerData();
+  const {
+    data: alertsData,
+    loading: alertsLoading,
+    error: alertsError,
+    refetch: refetchAlerts,
+  } = useNwsAlerts(region);
+  const {
+    data: windObs,
+    loading: windLoading,
+    error: windError,
+    refetch: refetchWind,
+  } = useStationObservation(mapTarget.lat, mapTarget.lon);
+  const {
+    data: rainViewerData,
+    loading: radarLoading,
+    error: radarError,
+    refetch: refetchRadar,
+  } = useRainViewerData();
   const timeline = useTimelinePlayback(rainViewerData, timeMode === "live");
 
   const handleRegionChange = useCallback((code: string) => {
@@ -89,6 +104,9 @@ function App() {
           onToggleSatellite={() => setShowSatellite((v) => !v)}
           onToggleAlerts={() => setShowAlerts((v) => !v)}
           onToggleWind={() => setShowWind((v) => !v)}
+          radarStatus={{ loading: radarLoading, error: radarError, onRetry: refetchRadar }}
+          alertsStatus={{ loading: alertsLoading, error: alertsError, onRetry: refetchAlerts }}
+          windStatus={{ loading: windLoading, error: windError, onRetry: refetchWind }}
         />
       </div>
       <TimelineStrip
@@ -98,9 +116,12 @@ function App() {
         isPlaying={timeline.isPlaying}
         speed={timeline.speed}
         disabled={timeMode === "live"}
+        loading={radarLoading}
+        error={radarError}
         onTogglePlay={timeline.togglePlaying}
         onCycleSpeed={timeline.cycleSpeed}
         onScrub={timeline.scrubTo}
+        onRetry={refetchRadar}
       />
     </div>
   );

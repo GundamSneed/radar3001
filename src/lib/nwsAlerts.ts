@@ -1,3 +1,5 @@
+import { describeHttpError } from "./httpError";
+
 // NWS API usage policy requires a descriptive User-Agent identifying the app + contact.
 const NWS_USER_AGENT = "radar3001-weather-dashboard (matthewgmonaco@gmail.com)";
 
@@ -36,7 +38,7 @@ export async function fetchActiveAlerts(stateCode: string): Promise<NwsAlertColl
   });
 
   if (!res.ok) {
-    throw new Error(`NWS alerts request failed: ${res.status} ${res.statusText}`);
+    throw new Error(describeHttpError(res.status, res.statusText));
   }
 
   return res.json();

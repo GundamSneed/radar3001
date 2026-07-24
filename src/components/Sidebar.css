@@ -110,6 +110,28 @@
 .layer-list__hint {
   font-size: 10px;
   color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.layer-list__hint--error {
+  color: var(--alert-severe);
+}
+
+.layer-list__retry {
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid var(--alert-severe);
+  color: var(--alert-severe);
+  border-radius: 2px;
+  padding: 1px 6px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.layer-list__retry:hover {
+  background: var(--bg-panel-hover);
 }
 
 .sidebar__section--planned .planned-list {
